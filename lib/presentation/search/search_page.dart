@@ -21,7 +21,7 @@ class _SearchPageState extends State<SearchPage> {
     return Scaffold(
    appBar: AppBar(
         centerTitle: true,
-        title: Text('Search Students'),
+        title: const Text('Search Students'),
       ),
       body: Column(
         children: [
@@ -35,7 +35,7 @@ class _SearchPageState extends State<SearchPage> {
                   
               decoration: InputDecoration(
                 labelText: 'Search',
-                prefixIcon: Icon(Icons.search),
+                prefixIcon: const Icon(Icons.search),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
                 ),
@@ -47,7 +47,7 @@ class _SearchPageState extends State<SearchPage> {
             child: Obx(
               (){
                    if (studentController.students.isEmpty) {
-                  return Center(child: Text('No students found'));
+                  return const Center(child: Text('No students found'));
                 } else {
                return ListView.separated(
               separatorBuilder: (context, index) => kheight10,
@@ -59,8 +59,8 @@ class _SearchPageState extends State<SearchPage> {
                     StudentDialog.showStudentDialog(context, student,);
                   },
                   child:  Container(
-                  margin: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-                  padding: EdgeInsets.all(16.0),
+                  margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                  padding: const EdgeInsets.all(16.0),
                   decoration: BoxDecoration(
                     color: backgroundcolor,
                     borderRadius: BorderRadius.circular(16.0),
@@ -92,31 +92,31 @@ class _SearchPageState extends State<SearchPage> {
                               ),
                             ),
                           ),
-                          SizedBox(width: 36),
+                          const SizedBox(width: 36),
                           Expanded(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
                                   student.name,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     fontSize: 24,
                                     color: kwhite,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                                SizedBox(height: 8),
+                                const SizedBox(height: 8),
                                 Text(
                                   'Course: ${student.course}',
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     color: kwhite,
                                     fontSize: 18,
                                   ),
                                 ),
-                                SizedBox(height: 4),
+                                const SizedBox(height: 4),
                                 Text(
                                   'Age: ${student.age}',
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     color: kwhite,
                                     fontSize: 18,
                                   ),

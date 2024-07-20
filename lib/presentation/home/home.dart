@@ -22,16 +22,16 @@ class _HomepageState extends State<Homepage> {
     return (await showDialog(
           context: context,
           builder: (context) => AlertDialog(
-            title: Text('Confirm Exit'),
-            content: Text('Do you want to exit the app?'),
+            title: const Text('Confirm Exit'),
+            content: const Text('Do you want to exit the app?'),
             actions: <Widget>[
               TextButton(
                 onPressed: () => Navigator.of(context).pop(false),
-                child: Text('No'),
+                child: const Text('No'),
               ),
               TextButton(
                 onPressed: () => exit(0),
-                child: Text('Yes'),
+                child: const Text('Yes'),
               ),
             ],
           ),
@@ -49,13 +49,13 @@ class _HomepageState extends State<Homepage> {
         appBar: AppBar(
           automaticallyImplyLeading: false,
           centerTitle: true,
-          title: Text('Student app'),
+          title: const Text('Student app'),
           actions: [
             Padding(
               padding: const EdgeInsets.all(10),
               child: IconButton(
                 onPressed: () {
-                  Get.to(SearchPage());
+                  Get.to(const SearchPage());
                 },
                 icon: const Icon(Icons.search),
               ),
@@ -77,8 +77,8 @@ class _HomepageState extends State<Homepage> {
                   );
                 },
                 child: Container(
-                  margin: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-                  padding: EdgeInsets.all(16.0),
+                  margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                  padding: const EdgeInsets.all(16.0),
                   decoration: BoxDecoration(
                     color: backgroundcolor,
                     borderRadius: BorderRadius.circular(16.0),
@@ -110,31 +110,31 @@ class _HomepageState extends State<Homepage> {
                               ),
                             ),
                           ),
-                          SizedBox(width: 36),
+                          const SizedBox(width: 36),
                           Expanded(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
                                   student.name,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     fontSize: 24,
                                     color: kwhite,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                                SizedBox(height: 8),
+                                const SizedBox(height: 8),
                                 Text(
                                   'Course: ${student.course}',
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     color: kwhite,
                                     fontSize: 18,
                                   ),
                                 ),
-                                SizedBox(height: 4),
+                                const SizedBox(height: 4),
                                 Text(
                                   'Age: ${student.age}',
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     color: kwhite,
                                     fontSize: 18,
                                   ),
@@ -153,13 +153,13 @@ class _HomepageState extends State<Homepage> {
           ),
         ),
         floatingActionButton: FloatingActionButton(
-          backgroundColor: Color.fromARGB(255, 152, 169, 238),
+          backgroundColor: const Color.fromARGB(255, 152, 169, 238),
           onPressed: () {
-            Get.to(() => AddStudents())?.then((value) {
+            Get.to(() => const AddStudents())?.then((value) {
               studentController.fetchAllStudents();
             });
           },
-          child: Icon(Icons.add, color: kwhite),
+          child: const Icon(Icons.add, color: kwhite),
         ),
       ),
     );

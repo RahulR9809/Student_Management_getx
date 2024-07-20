@@ -38,12 +38,11 @@ class _UpdatePageState extends State<UpdatePage> {
     imageController = TextEditingController(text: widget.student.image);
     phoneController = TextEditingController(text: widget.student.phone.toString());
     pinController = TextEditingController(text: widget.student.pincode.toString());
-    // imagechange = widget.student.image.isNotEmpty ? File(widget.student.image) : null;
     RxString pickedimage=RxString(widget.student.image);
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text(
+        title: const Text(
           'Update Student',
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
         ),
@@ -64,7 +63,7 @@ class _UpdatePageState extends State<UpdatePage> {
                        pickedimage.value=imagepath ?? '';
                       },
                       child: CircleAvatar(
-                        backgroundColor: Color.fromARGB(255, 69, 82, 134),
+                        backgroundColor: const Color.fromARGB(255, 69, 82, 134),
                         radius: 70,
                         backgroundImage: pickedimage.isEmpty
                             ? const NetworkImage(
@@ -197,7 +196,7 @@ class _UpdatePageState extends State<UpdatePage> {
                         );
                         updateStudent(updatedStudent);
                        
-                        Get.to(Homepage());
+                        Get.to(const Homepage());
                       }
                     }
                   },

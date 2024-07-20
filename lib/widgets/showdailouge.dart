@@ -25,27 +25,27 @@ class StudentDialog {
                     backgroundImage: student.image.isNotEmpty &&
                             File(student.image).existsSync()
                         ? FileImage(File(student.image))
-                        : AssetImage('assets/default_avatar.png') as ImageProvider,
+                        : const AssetImage('assets/default_avatar.png') as ImageProvider,
                   ),
                   IconButton(
                     onPressed: () {
                   Get.to(UpdatePage(student: student));
                     },
-                    icon: Icon(Icons.edit_note, size: 30),
+                    icon: const Icon(Icons.edit_note, size: 30),
                   ),
                 ],
               ),
-              DailogeText('NAME: ${student.name}'),
+              dailogeText('NAME: ${student.name}'),
               kheight10,
-              DailogeText('AGE: ${student.age}'),
+              dailogeText('AGE: ${student.age}'),
               kheight10,
-              DailogeText('COURSE: ${student.course}'),
+              dailogeText('COURSE: ${student.course}'),
               kheight10,
-              DailogeText('PLACE: ${student.place}'),
+              dailogeText('PLACE: ${student.place}'),
               kheight10,
-              DailogeText('PINCODE: ${student.pincode}'),
+              dailogeText('PINCODE: ${student.pincode}'),
               kheight10,
-              DailogeText('PHONE: ${student.phone}'),
+              dailogeText('PHONE: ${student.phone}'),
             ],
           ),
           actions: [
@@ -61,9 +61,9 @@ class StudentDialog {
                 ),
                 TextButton(
                   onPressed: () {
-                    Navigator.of(context).pop();
+                    Get.back();
                   },
-                  child: Text('Close'),
+                  child: const Text('Close'),
                 ),
               ],
             ),
@@ -73,10 +73,10 @@ class StudentDialog {
     );
   }
 
-  static Text DailogeText(String text) {
+  static Text dailogeText(String text) {
     return Text(
       text,
-      style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+      style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
     );
   }
 }

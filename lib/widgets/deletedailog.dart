@@ -22,7 +22,7 @@ class DeleteDailog{
                   onPressed: () {
                     deleteStudent(student.id);
                     Get.back();
-                    Get.to(Homepage());
+                    Get.to(const Homepage());
                   },
                   child: const Text('YES',
                       style: TextStyle(fontFamily: 'poppins', fontSize: 15))),

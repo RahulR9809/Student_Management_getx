@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:sampstudentapp/model/model.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -15,9 +16,10 @@ Future indataBase() async {
     );
     return db;
   } catch (e) {
-    // ignore: avoid_print
-    print('Error opening database: $e');
-    throw e;
+    if (kDebugMode) {
+      print('Error opening database: $e');
+    }
+    rethrow;
   }
 }
 
@@ -31,12 +33,13 @@ Future<void> addStudent(StudentModel value) async {
 
 Future<List<StudentModel>> getAllStudents() async {
   final value = await db.rawQuery('SELECT * FROM student');
-  // ignore: avoid_print
-  print(value);
+  if (kDebugMode) {
+    print(value);
+  }
 
   List<StudentModel> updatedStudentList =
       value.map((map) => StudentModel.fromMap(map)).toList();
-  return updatedStudentList; // Return the list
+  return updatedStudentList; 
 }
 
 
@@ -54,9 +57,7 @@ Future<List<StudentModel>> getAllStudents() async {
     value.id,
   ],
 );
-
-
-  getAllStudents(); // Assuming this method retrieves all students after the update
+  getAllStudents();
 }
 
 Future<void> deleteStudent(int? studentId) async {

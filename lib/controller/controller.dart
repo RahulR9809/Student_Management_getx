@@ -1,3 +1,5 @@
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sampstudentapp/db/db_functions.dart';
@@ -6,6 +8,14 @@ import 'package:sampstudentapp/model/model.dart';
 class StudentController extends GetxController {
   var students = <StudentModel>[].obs;
   var filteredStudents = <StudentModel>[].obs;
+
+  final nameEditingController = TextEditingController();
+  final ageEditingController = TextEditingController();
+  final placeEditingController = TextEditingController();
+  final courseEditingController = TextEditingController();
+  final phoneEditingController = TextEditingController();
+  final pinEditingController = TextEditingController();
+
 
   @override
   void onInit() {
@@ -17,37 +27,45 @@ class StudentController extends GetxController {
     try {
       final fetchedStudents = await getAllStudents();
       students.assignAll(fetchedStudents);
-      filteredStudents.assignAll(fetchedStudents); // Initialize filteredStudents with all students
+      filteredStudents.assignAll(fetchedStudents); 
     
     } catch (e) {
-      print('Error fetching students: $e');
+      if (kDebugMode) {
+        print('Error fetching students: $e');
+      }
     }
   }
 
   Future<void> addStudent(StudentModel student) async {
     try {
       await addStudent(student);
-      fetchAllStudents(); // Update the student list after adding
+      fetchAllStudents();
     } catch (e) {
-      print('Error adding student: $e');
+     if (kDebugMode) {
+        print('Error fetching students: $e');
+      }
     }
   }
 
   Future<void> updateStudent(StudentModel student) async {
     try {
       await updateStudent(student);
-      fetchAllStudents(); // Update the student list after updating
+      fetchAllStudents(); 
     } catch (e) {
-      print('Error updating student: $e');
+     if (kDebugMode) {
+        print('Error fetching students: $e');
+      }
     }
   }
 
   Future<void> deleteStudent(int studentId) async {
     try {
       await deleteStudent(studentId);
-      fetchAllStudents(); // Update the student list after deleting
+      fetchAllStudents();
     } catch (e) {
-      print('Error deleting student: $e');
+      if (kDebugMode) {
+        print('Error fetching students: $e');
+      }
     }
   }
 
@@ -58,9 +76,7 @@ class StudentController extends GetxController {
     } else {
       filteredStudents.assignAll(
         students.where((student) {
-          return student.name.toLowerCase().contains(lowerCaseQuery) ||
-                 student.course.toLowerCase().contains(lowerCaseQuery) ||
-                 student.place.toLowerCase().contains(lowerCaseQuery);
+          return student.name.toLowerCase().contains(lowerCaseQuery);
         }).toList(),
       );
     }
@@ -74,7 +90,9 @@ class StudentController extends GetxController {
       }
       return null;
     } catch (e) {
-      print('Error picking image: $e');
+     if (kDebugMode) {
+        print('Error fetching students: $e');
+      }
       return null;
     }
   }

@@ -1,5 +1,5 @@
 import 'dart:io';
-
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -17,25 +17,20 @@ class AddStudents extends StatefulWidget {
 }
 
 class _AddStudentsState extends State<AddStudents> {
-  final nameEditingController = TextEditingController();
-  final ageEditingController = TextEditingController();
-  final placeEditingController = TextEditingController();
-  final courseEditingController = TextEditingController();
-  final phoneEditingController = TextEditingController();
-  final pinEditingController = TextEditingController();
+ 
 
 
   RxBool photoRequiredError = false.obs;
 
   final formKey = GlobalKey<FormState>();
   RxString pickImage = RxString('');
-  final StudentController studentController = Get.put(StudentController());
+  final StudentController studentController = Get.find<StudentController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: Text(
+          title: const Text(
             'add here',
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
           ),
@@ -58,13 +53,13 @@ class _AddStudentsState extends State<AddStudents> {
                             photoRequiredError.value = pickImage.value.isEmpty;
                           },
                           child: CircleAvatar(
-                            backgroundColor: Color.fromARGB(255, 69, 82, 134),
+                            backgroundColor: const Color.fromARGB(255, 69, 82, 134),
                             radius: 70,
                             backgroundImage: pickImage.value.isNotEmpty
                                 ? FileImage(File(pickImage.value))
                                 : null,
                             child: pickImage.value.isEmpty
-                                ? Icon(
+                                ? const Icon(
                                     Icons.person,
                                     size: 50,
                                     color: Colors.white,
@@ -80,12 +75,12 @@ class _AddStudentsState extends State<AddStudents> {
                         style: TextStyle(color: Colors.red),
                       );
                     } else {
-                      return SizedBox(); // Return an empty SizedBox if no error
+                      return const SizedBox(); // Return an empty SizedBox if no error
                     }
                   }),
                   kheight20,
                   CustomTextFormField(
-                    controller: nameEditingController,
+                    controller: studentController.nameEditingController,
                     labelText: 'Name',
                     keyboardType: TextInputType.text,
                     validator: (value) {
@@ -103,7 +98,7 @@ class _AddStudentsState extends State<AddStudents> {
                   ),
                   kheight10,
                   CustomTextFormField(
-                    controller: ageEditingController,
+                    controller: studentController.ageEditingController,
                     labelText: 'Age',
                     keyboardType: TextInputType.number,
                     validator: (value) {
@@ -122,7 +117,7 @@ class _AddStudentsState extends State<AddStudents> {
                   ),
                   kheight10,
                   CustomTextFormField(
-                    controller: placeEditingController,
+                    controller: studentController.placeEditingController,
                     labelText: 'Place',
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -136,7 +131,7 @@ class _AddStudentsState extends State<AddStudents> {
                   ),
                   kheight10,
                   CustomTextFormField(
-                    controller: pinEditingController,
+                    controller: studentController.pinEditingController,
                     labelText: 'pincode',
                     keyboardType: TextInputType.number,
                     validator: (value) {
@@ -155,7 +150,7 @@ class _AddStudentsState extends State<AddStudents> {
                   ),
                   kheight10,
                   CustomTextFormField(
-                    controller: courseEditingController,
+                    controller: studentController.courseEditingController,
                     labelText: 'Course',
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -169,7 +164,7 @@ class _AddStudentsState extends State<AddStudents> {
                   ),
                   kheight10,
                   CustomTextFormField(
-                    controller: phoneEditingController,
+                    controller: studentController.phoneEditingController,
                     labelText: 'Phone',
                     keyboardType: TextInputType.number,
                     validator: (value) {
@@ -192,7 +187,7 @@ class _AddStudentsState extends State<AddStudents> {
                       if (formKey.currentState!.validate()) {
                         if (pickImage.value.isEmpty) {
                            ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
+                          const SnackBar(
                             content: Text('Please select an image'),
                             duration: Duration(seconds: 2),
                           ),
@@ -217,12 +212,12 @@ class _AddStudentsState extends State<AddStudents> {
 
   Future<void> addstudentbuttonclicked() async {
     try {
-      final name = nameEditingController.text.trim();
-      final age = ageEditingController.text.trim();
-      final place = placeEditingController.text.trim();
-      final course = courseEditingController.text.trim();
-      final phone = phoneEditingController.text.trim();
-      final pincode = pinEditingController.text.trim();
+      final name =studentController. nameEditingController.text.trim();
+      final age = studentController.ageEditingController.text.trim();
+      final place = studentController.placeEditingController.text.trim();
+      final course = studentController.courseEditingController.text.trim();
+      final phone = studentController.phoneEditingController.text.trim();
+      final pincode = studentController.pinEditingController.text.trim();
 
       if (name.isEmpty ||
           age.isEmpty ||
@@ -244,22 +239,18 @@ class _AddStudentsState extends State<AddStudents> {
       );
 
       await addStudent(student);
-      // ignore: avoid_print
-      print('Student added successfully');
+
+
+ studentController.nameEditingController.clear();
+    studentController.ageEditingController.clear();
+    studentController.placeEditingController.clear();
+    studentController.courseEditingController.clear();
+    studentController.phoneEditingController.clear();
+    studentController.pinEditingController.clear();
     } catch (e) {
-      // ignore: avoid_print
-      print('Error adding student: $e');
+      if (kDebugMode) {
+        print('Error adding student: $e');
+      }
     }
   }
-
-  // Future<void> pickImage() async {
-  //   final pickedFile =
-  //       await ImagePicker().pickImage(source: ImageSource.gallery);
-  //   if (pickedFile == null) return;
-
-  //   setState(() {
-  //     image = File(pickedFile.path);
-  //     photoRequiredError = false;
-  //   });
-  // }
 }
